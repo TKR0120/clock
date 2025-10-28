@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rhyming Clock</title>
+    <title>愛情藏頭詩時鐘</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&display=swap');
         
         * {
             margin: 0;
@@ -14,260 +14,164 @@
         }
         
         body {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #f3f3f3;
-            font-family: 'VT323', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Serif TC', serif;
+            padding: 20px;
         }
         
         .clock-container {
-            width: 600px;
-            height: 320px;
-            background: #1a1a1a;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.2),
-                inset 0 1px 0 rgba(255,255,255,0.1),
-                inset 0 -1px 0 rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
         
-        .clock-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        .time-display {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        .display-frame {
-            width: 100%;
-            height: 100%;
-            background: #0a0a0a;
-            border-radius: 10px;
+        .poem-container {
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 100%);
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 
-                inset 0 2px 10px rgba(0,0,0,0.5),
-                inset 0 -1px 0 rgba(255,255,255,0.05);
-            position: relative;
-        }
-        
-        .display-screen {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 5px;
-            padding: 20px;
+            min-height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .display-screen::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(rgba(255,255,255,0.02) 50%, transparent 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.4;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
         }
         
         #poem-display {
-            color: #00ff88;
-            font-size: 24px;
-            line-height: 1.6;
-            font-weight: 400;
+            font-size: 22px;
+            line-height: 2;
+            color: #333;
             text-align: left;
-            text-shadow: 0 0 10px rgba(0,255,136,0.3);
             white-space: pre-line;
-            width: 100%;
-            z-index: 1;
-            font-family: 'VT323', monospace;
-        }
-        
-        .time-indicator {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            color: #00ff88;
-            font-size: 16px;
-            opacity: 0.5;
             font-weight: 400;
-            font-family: 'VT323', monospace;
         }
         
-        .power-light {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 8px;
-            height: 8px;
-            background: #00ff88;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0,255,136,0.5);
-            animation: pulse 2s infinite;
+        .poem-display .highlight {
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 26px;
         }
         
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
         }
         
-        .typing-effect {
-            display: inline;
-            border-right: 2px solid #00ff88;
-            animation: blink-caret 0.75s step-end infinite;
+        .heart {
+            display: inline-block;
+            color: #ff6b9d;
+            animation: heartbeat 1.5s ease-in-out infinite;
         }
         
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #00ff88; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.2); }
+            56% { transform: scale(1); }
+        }
+        
+        @media (max-width: 600px) {
+            .clock-container {
+                padding: 30px 20px;
+            }
+            .time-display {
+                font-size: 36px;
+            }
+            #poem-display {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="clock-container">
-        <div class="display-frame">
-            <div class="power-light"></div>
-            <div class="display-screen">
-                <div id="poem-display"></div>
-                <div class="time-indicator" id="time-indicator"></div>
-            </div>
+        <div class="time-display" id="time-display">00:00</div>
+        <div class="poem-container">
+            <div id="poem-display"></div>
+        </div>
+        <div class="footer">
+            每一刻都是愛的詩篇 <span class="heart">♥</span>
         </div>
     </div>
 
     <script>
-        const TRANSLATIONS = {
-            "en-US": {
-                "poemPrompt": "Write a 4-line acrostic love poem where each line starts with a digit from the time {timeString} (format: HH:MM). The first line starts with the first digit of the hour, second line with the second digit of the hour, third line with the first digit of the minute, fourth line with the second digit of the minute. Each line should express romantic feelings or moments. Make it elegant and heartfelt. Respond with ONLY the poem text, no explanation.",
-                "fallbackPoem": "Love blooms at {timeString} tonight,\nOur hearts beating in perfect time,\nVows whispered soft in candlelight,\nEternal moments, forever thine.",
-                "errorMessage": "Error generating poem:"
-            },
-            /* LOCALE_PLACEHOLDER_START */
-            "zh-TW": {
-                "poemPrompt": "請寫一首四行的愛情藏頭詩，每一行的開頭必須是時間 {timeString} 的數字（格式：HH:MM）。第一行用小時的第一個數字開頭，第二行用小時的第二個數字開頭，第三行用分鐘的第一個數字開頭，第四行用分鐘的第二個數字開頭。每一行都要表達浪漫的情感或愛情時刻。詩句要優雅動人。只回覆詩句本身，不要任何解釋。",
-                "fallbackPoem": "愛在{timeString}悄然降臨，\n情深意重心相印，\n時光荏苒情不變，\n刻骨銘心到永恆。",
-                "errorMessage": "生成詩句時發生錯誤："
-            },
-            "ja-JP": {
-                "poemPrompt": "{timeString}の時刻について、非常に短い（2-4行）ミニマリストの詩を書いてください。詩は韻を踏み、優雅でシンプルでなければなりません。時刻の具体的な数字に焦点を当ててください。詩は俳句のように思索的で正確な感じにしてください。詩のテキストのみを返し、タイトルや説明は不要です。",
-                "fallbackPoem": "{timeString}に時計が鳴る、\n時を刻み、刻々と。",
-                "errorMessage": "詩の生成中にエラーが発生しました："
-            }
-            /* LOCALE_PLACEHOLDER_END */
+        // 預設的愛情藏頭詩庫（按數字0-9）
+        const poemTemplates = {
+            '0': ['0距離的心靈相通', '0瑕疵在你的眼中', '0時無刻想念著你', '0點整我在等你'],
+            '1': ['1生一世永不分離', '1見鍾情難以忘懷', '1心一意只愛著你', '1起走過風雨歲月'],
+            '2': ['2人相遇在月光下', '2顆心緊緊相依偎', '2個人的美好時光', '2情相悅譜寫樂章'],
+            '3': ['3生有幸與你相守', '3月春風吹動情愫', '3言兩語訴說愛意', '3生石上刻下誓言'],
+            '4': ['4季更迭情意不變', '4海為家有你就好', '4目相對心跳加速', '4月天裡遇見了你'],
+            '5': ['5月花開為你綻放', '5彩繽紛是你的笑', '5體投地愛上了你', '5感俱全因有了你'],
+            '6': ['6月夏日熱情如火', '6神無主只因是你', '6六大順有你相伴', '6根清淨唯獨想你'],
+            '7': ['7夕相會鵲橋之上', '7彩光芒照亮心房', '7上八下為你心跳', '7年之癢因愛化解'],
+            '8': ['8月桂花香飄四方', '8方來財不及你貴', '8面玲瓏不如你好', '8字真言我愛著你'],
+            '9': ['9月秋風輕撫臉龐', '9重天外只有你在', '9霄雲外與你翱翔', '9九歸一終於是你']
         };
 
-        // Fixed to Traditional Chinese
-        const locale = 'zh-TW';
-        const t = (key) => TRANSLATIONS[locale]?.[key] || TRANSLATIONS['en-US'][key] || key;
-
+        const timeDisplay = document.getElementById('time-display');
         const poemDisplay = document.getElementById('poem-display');
-        const timeIndicator = document.getElementById('time-indicator');
         let currentMinute = -1;
-        let isTyping = false;
 
-        // Create audio context for typing sounds
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-        function createTypingSound() {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            // Softer sine wave instead of square wave
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Lower frequency, more pleasant
-            
-            // Gentle volume envelope
-            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.02, audioContext.currentTime + 0.01); // Soft attack
-            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.1); // Gentle decay
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.1);
+        function getRandomPoem(digit) {
+            const poems = poemTemplates[digit];
+            return poems[Math.floor(Math.random() * poems.length)];
         }
 
-        function formatTime(date) {
-            return date.toLocaleTimeString(locale, { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: locale.startsWith('en') 
+        function generateAcrosticPoem(timeString) {
+            // 移除冒號，取得四個數字
+            const digits = timeString.replace(':', '').split('');
+            
+            const lines = digits.map((digit, index) => {
+                const poemLine = getRandomPoem(digit);
+                // 高亮第一個字（數字）
+                return `<span class="highlight">${poemLine[0]}</span>${poemLine.slice(1)}`;
             });
+            
+            return lines.join('\n');
         }
 
-        async function generatePoem(time) {
-            const hour = time.getHours();
-            const minute = time.getMinutes();
-            const timeString = formatTime(time);
-            
-            const prompt = t('poemPrompt').replace('{timeString}', timeString) + ` Please respond in ${locale} language`;
-            
-            try {
-                const response = await window.claude.complete(prompt);
-                return response.trim();
-            } catch (error) {
-                console.error(t('errorMessage'), error);
-                return t('fallbackPoem').replace('{timeString}', timeString);
-            }
-        }
-
-        async function typePoem(poem) {
-            isTyping = true;
-            poemDisplay.innerHTML = '';
-            
-            for (let i = 0; i < poem.length; i++) {
-                poemDisplay.innerHTML = poem.substring(0, i + 1) + '<span class="typing-effect"></span>';
-                if (poem[i] !== ' ' && poem[i] !== '\n') {
-                    createTypingSound();
-                }
-                await new Promise(resolve => setTimeout(resolve, 50));
-            }
-            
-            poemDisplay.innerHTML = poem;
-            isTyping = false;
-        }
-
-        async function updateClock() {
+        function updateClock() {
             const now = new Date();
-            const currentMinuteNow = now.getMinutes();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
             
-            timeIndicator.textContent = formatTime(now);
+            timeDisplay.textContent = timeString;
             
-            if (currentMinuteNow !== currentMinute && !isTyping) {
-                currentMinute = currentMinuteNow;
-                const poem = await generatePoem(now);
-                await typePoem(poem);
+            // 每分鐘更新詩句
+            if (now.getMinutes() !== currentMinute) {
+                currentMinute = now.getMinutes();
+                const poem = generateAcrosticPoem(timeString);
+                poemDisplay.innerHTML = poem;
             }
         }
 
-        // Initial update
+        // 初始更新
         updateClock();
         
-        // Update every second
+        // 每秒更新時間
         setInterval(updateClock, 1000);
-        
-        // Handle user interaction to enable audio
-        document.addEventListener('click', function initAudio() {
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            document.removeEventListener('click', initAudio);
-        }, { once: true });
     </script>
 </body>
 </html>
